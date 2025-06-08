@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .data-source { fill: #E0E7FF; stroke: #6366F1; }
+      .script-process { fill: #D1FAE5; stroke: #10B981; }
+      .generated-sheet { fill: #FEF3C7; stroke: #F59E0B; }
+      .final-report { fill: #FEE2E2; stroke: #EF4444; }
+      .arrow-head { fill: #6B7280; }
+      .arrow-line { stroke: #6B7280; stroke-width: 2; }
+      .flow-text { font-size: 12px; font-family: sans-serif; fill: #1F2937; }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 p-6">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">Project Contents & Workflow Map</h1>
+      <p class="text-sm text-gray-600 mb-6">This page provides a visual map of the data flow and a glossary of all sheets involved in the F&M Survey Analysis tool.</p>
+
+      <!-- Workflow Map Section -->
+      <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Data Workflow Map</h2>
+        <svg width="100%" height="250" viewBox="0 0 800 250">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head" />
+            </marker>
+          </defs>
+
+          <!-- Nodes -->
+          <g>
+            <rect x="10" y="50" width="150" height="120" rx="8" class="data-source"></rect>
+            <text x="85" y="75" text-anchor="middle" class="flow-text font-bold">Raw Data Sheets</text>
+            <text x="85" y="95" text-anchor="middle" class="flow-text">TransformedData</text>
+            <text x="85" y="110" text-anchor="middle" class="flow-text">JLPRealEstate</text>
+            <text x="85" y="125" text-anchor="middle" class="flow-text">CBRESiteInfo</text>
+            <text x="85" y="140" text-anchor="middle" class="flow-text">QuestionThemes</text>
+          </g>
+          <g>
+            <rect x="230" y="90" width="140" height="60" rx="8" class="script-process"></rect>
+            <text x="300" y="120" text-anchor="middle" class="flow-text font-bold">DataPreparation.gs</text>
+          </g>
+          <g>
+            <rect x="440" y="90" width="150" height="60" rx="8" class="generated-sheet"></rect>
+            <text x="515" y="112" text-anchor="middle" class="flow-text font-bold">Generated Summary</text>
+            <text x="515" y="128" text-anchor="middle" class="flow-text">SiteScoreSummary</text>
+          </g>
+           <g>
+            <rect x="650" y="90" width="140" height="60" rx="8" class="script-process"></rect>
+            <text x="720" y="120" text-anchor="middle" class="flow-text font-bold">Reporting.gs</text>
+          </g>
+
+          <!-- Arrows -->
+          <line x1="160" y1="110" x2="230" y2="120" class="arrow-line" marker-end="url(#arrow)"></line>
+          <line x1="370" y1="120" x2="440" y2="120" class="arrow-line" marker-end="url(#arrow)"></line>
+          <line x1="590" y1="120" x2="650" y2="120" class="arrow-line" marker-end="url(#arrow)"></line>
+          <path d="M 720 150 Q 720 190, 400 210" stroke="#6B7280" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+          <text x="560" y="195" class="flow-text">Generates Final Reports</text>
+
+        </svg>
+      </div>
+
+      <!-- Glossary Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">Sheet Glossary & Data Intersections</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr>
+                  <th scope="col" class="px-4 py-3">Sheet Name</th>
+                  <th scope="col" class="px-4 py-3">Description & Purpose</th>
+                  <th scope="col" class="px-4 py-3">Data Source(s)</th>
+                  <th scope="col" class="px-4 py-3">Used By (Scripts / Reports)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-blue-50 border-b border-blue-200">
+                  <td colspan="4" class="px-4 py-2 font-semibold text-blue-800">Raw Data Sheets (Essential Inputs)</td>
+                </tr>
+                <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">TransformedData</td>
+                  <td class="px-4 py-3">The primary source of survey data after initial cleaning. Contains one row per question per site per survey half.</td>
+                  <td class="px-4 py-3">External Import</td>
+                  <td class="px-4 py-3">DataPreparation.gs</td>
+                </tr>
+                <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">JLPRealEstate</td>
+                  <td class="px-4 py-3">Static data mapping Site No. to its JLP Function (e.g., Shop, CDH).</td>
+                  <td class="px-4 py-3">External Import</td>
+                  <td class="px-4 py-3">Reporting.gs</td>
+                </tr>
+                 <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">CBRESiteInfo</td>
+                  <td class="px-4 py-3">Static data mapping Site No. to CBRE-specific details like Sector.</td>
+                  <td class="px-4 py-3">External Import</td>
+                  <td class="px-4 py-3">Reporting.gs</td>
+                </tr>
+                 <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">QuestionThemes</td>
+                  <td class="px-4 py-3">Static data mapping each Question ID to a broader service theme (e.g., Cleaning, Service).</td>
+                  <td class="px-4 py-3">External Import</td>
+                  <td class="px-4 py-3">Reporting.gs</td>
+                </tr>
+                <tr class="bg-yellow-50 border-b border-yellow-200">
+                  <td colspan="4" class="px-4 py-2 font-semibold text-yellow-800">Generated Sheets (Automated Outputs)</td>
+                </tr>
+                 <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">SiteScoreSummary</td>
+                  <td class="px-4 py-3">The main data engine for all reports. Pivots the raw data to show one row per site, with columns for each survey period and key calculated metrics (Average, Trend, etc.).</td>
+                  <td class="px-4 py-3">TransformedData</td>
+                  <td class="px-4 py-3">Reporting.gs (as its single source of truth)</td>
+                </tr>
+                 <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">Report - *</td>
+                  <td class="px-4 py-3">Final, formatted reports for end-users, such as "Latest Scores" or "Focus Areas".</td>
+                  <td class="px-4 py-3">SiteScoreSummary</td>
+                  <td class="px-4 py-3">End-User Viewing</td>
+                </tr>
+                 <tr class="bg-white border-b">
+                  <td class="px-4 py-3 font-medium">HalfSequenceLookup</td>
+                  <td class="px-4 py-3">A helper table that correctly orders the survey periods ("Halves") chronologically.</td>
+                  <td class="px-4 py-3">TransformedData</td>
+                  <td class="px-4 py-3">DataPreparation.gs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
